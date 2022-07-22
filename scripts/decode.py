@@ -1,5 +1,4 @@
 import pandas as pd
-import glob
 import logging
 
 from utils.common import unixtime2utc, df, typecode, icao
@@ -7,23 +6,17 @@ from utils.position import oe_flag, altitude05, util_position, altcode
 from utils.BDS50 import is50, roll50, trk50, gs50, tas50
 from utils.BDS60 import is60, hdg60, vr60ins, mach60, ias60
 
-log_path = "../log"
-logging.basicConfig(filename=f"{log_path}/decode.log",
-                    filemode='a',
-                    format='%(name)s - %(levelname)s - %(message)s',
-                    level=logging.INFO)
 
 file_path = "/data3/storage/ADSB/raw/DF"
 out_path = "/data3/storage/ADSB/merged"
 time_resolution = "0.5S"
 
-logging.info(f"Decode start, all files")
-logging.info(f"file_path: {file_path}")
-logging.info(f"out_path: {out_path}")
-logging.info(f"time_resolution: {time_resolution}")
-
 # Read file
-for f in glob.glob(f"{file_path}/**/*.txt"):
+def decode(f):
+    logging.info(f"file_path: {file_path}")
+    logging.info(f"out_path: {out_path}")
+    logging.info(f"time_resolution: {time_resolution}")
+
     filename = f.split('/')[-1]
     date = f.split('/')[-2]
     logging.info(f"{date}, {filename}")
@@ -132,4 +125,5 @@ for f in glob.glob(f"{file_path}/**/*.txt"):
         logging.info(f"Work done")
 
     except Exception as e:
+        logging.info(f"UNEXPECTED ERROR at {f}")
         logging.critical(e, exc_info=True)
