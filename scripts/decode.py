@@ -14,7 +14,7 @@ logging.basicConfig(filename=f"{log_path}/decode.log",
                     level=logging.INFO)
 
 file_path = "/data3/storage/ADSB/raw/DF"
-out_path = "/data3/sotrage/ADSB/merged"
+out_path = "/data3/storage/ADSB/merged"
 time_resolution = "0.5S"
 
 logging.info(f"Decode start, all files")
