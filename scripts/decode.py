@@ -132,5 +132,5 @@ for f in glob.glob(f"{file_path}/**/*.txt"):
         target_final.to_csv(f"{out_path}/{date}_{filename}")
         logging.info(f"Work done")
 
-    except:
-        logging.critical("Unexpected Error")
+    except Exception as e:
+        logging.critical(e, exc_info=True)
