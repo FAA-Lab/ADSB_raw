@@ -51,6 +51,7 @@ for f in glob.glob(f"{file_path}/**/*.txt"):
         target['oe'] = target['code'].apply(lambda x: oe_flag(x))
         target['is60'] = target['code'].apply(lambda x: is60(x) if (df(x)==21 or df(x)==20) else None)
         target['is50'] = target['code'].apply(lambda x: is50(x) if (df(x)==21 or df(x)==20) else None)
+        target['acid'] = target['code'].apply(lambda x: icao(x))
         logging.info(f"Flag done")
 
         # Filtering downlink format
@@ -100,14 +101,12 @@ for f in glob.glob(f"{file_path}/**/*.txt"):
         logging.info(f"BDS60 data: len {len(target_60)}")
 
         # Get airborne data from Comm-b data
-        target_50['acid'] = target_50['code'].apply(lambda x: icao(x))
         target_50['alt'] = target_50['code'].apply(lambda x: altcode(x))
         target_50['roll'] = target_50['code'].apply(lambda x: roll50(x))
         target_50['tta'] = target_50['code'].apply(lambda x: trk50(x))
         target_50['gspd'] = target_50['code'].apply(lambda x: gs50(x))
         target_50['tas'] = target_50['code'].apply(lambda x: tas50(x))
 
-        target_60['acid'] = target_60['code'].apply(lambda x: icao(x))
         target_60['alt'] = target_60['code'].apply(lambda x: altcode(x))
         target_60['mhed'] = target_60['code'].apply(lambda x: hdg60(x))
         target_60['vr'] = target_60['code'].apply(lambda x: vr60ins(x))
