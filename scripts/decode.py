@@ -31,16 +31,19 @@ for f in glob.glob(f"{file_path}/**/*.txt"):
     try:
         target = pd.read_csv(f, sep="\s+", header=None)
         target.columns = ['time', 'code']
+        logging.info(f"Read done")
 
         # Timestamp
         target['time'] = target['time'].apply(lambda x: unixtime2utc(x))
         target['time'] = pd.to_datetime(target['time'])
         target['time'] = target['time'].dt.round(time_resolution)
         logging.info(f"Raw data: len {len(target)}")
+        logging.info(f"Add timestamp done")
 
         # Filtering length
         target['length'] = target['code'].apply(lambda x: len(x))
         target = target[target['length']==28]
+        logging.info(f"Length filtering done")
 
         # Flags
         target['df'] = target['code'].apply(lambda x: df(x))
@@ -48,6 +51,7 @@ for f in glob.glob(f"{file_path}/**/*.txt"):
         target['oe'] = target['code'].apply(lambda x: oe_flag(x))
         target['is60'] = target['code'].apply(lambda x: is60(x) if (df(x)==21 or df(x)==20) else None)
         target['is50'] = target['code'].apply(lambda x: is50(x) if (df(x)==21 or df(x)==20) else None)
+        logging.info(f"Flag done")
 
         # Filtering downlink format
         target = target[(target['df']==17) | (target['df']==20) | (target['df']==21)]
@@ -55,12 +59,14 @@ for f in glob.glob(f"{file_path}/**/*.txt"):
         # Split data based on DF
         target_adsb = target[target['df']==17]
         target_commb = target[(target['df']==20) | (target['df']==21)]
+        logging.info(f"First split done")
 
         # Filtering typecode for ADSB data
         target_adsb = target_adsb[(target_adsb['tc'] >= 9) & (target_adsb['tc'] <= 18)]
 
         # Altitude for ADSB data
         target_adsb['alt'] = target_adsb['code'].apply(lambda x: altitude05(x))
+        logging.info(f"ADSB altitude done")
 
         # Get position information from ADSB data
         unqt = target_adsb['time'].unique()
