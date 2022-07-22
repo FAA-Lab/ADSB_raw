@@ -268,19 +268,20 @@ def util_position(chunk):
             if loc == pair_loc[pair_c]:
                 alt0 = altitude05(chunk.iloc[loc]['code'])
                 alt1 = altitude05(chunk.iloc[loc+1]['code'])
-                if abs(alt0 - alt1) < 50:
-                    latlon = airborne_position(chunk.iloc[loc]['code'], chunk.iloc[loc+1]['code'],
-                                               chunk.iloc[loc]['time'], chunk.iloc[loc+1]['time'])
-                    if latlon is not None:
-                        latlon_list.append(latlon)
-                        lat = latlon[0]
-                        lon = latlon[1]
+                if (alt0 is not None) & (alt1 is not None):
+                    if abs(alt0 - alt1) < 50:
+                        latlon = airborne_position(chunk.iloc[loc]['code'], chunk.iloc[loc+1]['code'],
+                                                   chunk.iloc[loc]['time'], chunk.iloc[loc+1]['time'])
+                        if latlon is not None:
+                            latlon_list.append(latlon)
+                            lat = latlon[0]
+                            lon = latlon[1]
 
-                        alt = (alt0 + alt1)/2.
-                        alt_list.append(alt)
+                            alt = (alt0 + alt1)/2.
+                            alt_list.append(alt)
 
-                if len(pair_loc)-1 > pair_c:
-                    pair_c += 1
+                    if len(pair_loc)-1 > pair_c:
+                        pair_c += 1
             else:
                 if latlon is not None:
                     latlon = airborne_position_with_ref(chunk.iloc[loc]['code'], lat, lon)
