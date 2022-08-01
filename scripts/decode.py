@@ -5,7 +5,7 @@ from utils.common import unixtime2utc, df, typecode, icao
 from utils.position import oe_flag, altitude05, util_position, altcode
 from utils.BDS50 import is50, roll50, trk50, gs50, tas50
 from utils.BDS60 import is60, hdg60, vr60ins, mach60, ias60
-
+from utils.wind import calculate
 
 file_path = "/data3/storage/ADSB/raw/DF"
 out_path = "/data3/storage/ADSB/merged"
@@ -117,9 +117,12 @@ def decode(f):
 
         # Merge position and airborne data to produce merged data
         target_final = pd.merge(target_pos, target_info, how='inner', on=['time', 'acid'])
-        final_cols = ['time', 'acid', 'alt', 'alt_x', 'alt_y', 'tta', 'gspd', 'tas', 'roll', 'ias', 'mach', 'vr']
+        final_cols = ['time', 'acid', 'lat', 'lon', 'alt', 'alt_x', 'alt_y', 'tta', 'gspd', 'tas', 'roll', 'ias', 'mach', 'vr']
         target_final = target_final[final_cols]
         logging.info(f"Final data: len {len(target_final)}")
+
+        # calculate wind
+        target_final = calculate(target_final)
 
         target_final.to_csv(f"{out_path}/{date}_{filename}")
         logging.info(f"Work done")
