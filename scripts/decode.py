@@ -117,7 +117,7 @@ def decode(f):
 
         # Merge position and airborne data to produce merged data
         target_final = pd.merge(target_pos, target_info, how='inner', on=['time', 'acid'])
-        final_cols = ['time', 'acid', 'lat', 'lon', 'alt', 'alt_x', 'alt_y', 'tta', 'gspd', 'tas', 'roll', 'ias', 'mach', 'vr']
+        final_cols = ['time', 'acid', 'lat', 'lon', 'alt', 'alt_x', 'alt_y', 'tta', 'gspd', 'tas', 'roll', 'mhed', 'ias', 'mach', 'vr']
         target_final = target_final[final_cols]
         logging.info(f"Final data: len {len(target_final)}")
 
