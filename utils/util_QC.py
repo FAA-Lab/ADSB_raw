@@ -26,7 +26,7 @@ def rangeQC(df):
 
 def staticQC(df):
     ths = 5
-    static_list = ["time", "tc", "wdir", "wspd"]
+    static_list = ["time", "wdir", "wspd"]
     for k in static_list:
         if k in df.columns:
             df[f"flag_{k}"] = (df[k].groupby([df[k].diff().ne(0).cumsum()]).transform('size').ge(ths).astype(int))
