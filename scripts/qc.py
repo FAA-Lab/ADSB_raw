@@ -19,7 +19,7 @@ logging.basicConfig(filename=f"{log_path}/{target_year}_calculated_wind_QC.log",
                     level=logging.INFO)
 
 csv_path = "/data3/storage/ADSB/merged"
-df_out_path = "/data3/storgage/ADSB/QCdone"
+df_out_path = "/data3/storage/ADSB/QCdone"
 
 fig_out_path = "../results/wind_QC_fig"
 logging.info(f'Start QC for calculated wind')
