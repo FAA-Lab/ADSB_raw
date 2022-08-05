@@ -57,13 +57,13 @@ for i, d in enumerate(filname):
             for chunk in sub_acid_list:
                 if len(chunk) > 1:
                     logging.info(f"init {len(chunk)}")
+                    chunk = chunk.dropna(subset=['wspd', 'wdir'])
                     chunk = staticQC(chunk)
                     logging.info(f"after static QC {len(chunk)}")
                     chunk = flucQC(chunk)
                     logging.info(f"after fluc QC {len(chunk)}")
                     chunk = additionalQC(chunk)
                     logging.info(f"after additional QC {len(chunk)}")
-                    chunk = chunk.dropna(subset=['wspd', 'wdir'])
                     if len(chunk) > 2:
                         chunk_list.append(chunk[1:])
                 logging.info(f"fin {len(chunk)}")
