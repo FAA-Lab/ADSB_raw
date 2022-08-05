@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from utils.util_QC import rangeQC, staticQC, flucQC, additionalQC
-from utils.chunk import chunk_dataframe_by_callsign, chunk_dataframe_by_15min
+from utils.chunk import chunk_dataframe_by_acid, chunk_dataframe_by_15min
 
 
 target_year = "2020"
@@ -49,12 +49,12 @@ for i, d in enumerate(filname):
 
         sub_df_list = chunk_dataframe_by_15min(df)
         # logging.info(f"Chunking by time done, {len(sub_df_list)}/4")
-        callsign_list = chunk_dataframe_by_callsign(sub_df_list)
-        # logging.info(f"Chunking by callsign done, {[len(cl) for cl in callsign_list]}")
+        acid_list = chunk_dataframe_by_acid(sub_df_list)
+        # logging.info(f"Chunking by acid done, {[len(cl) for cl in acid_list]}")
 
         chunk_list = list()
-        for sub_callsign_list in callsign_list:
-            for chunk in sub_callsign_list:
+        for sub_acid_list in acid_list:
+            for chunk in sub_acid_list:
                 if len(chunk) > 1:
                     logging.info(f"init {len(chunk)}")
                     chunk = staticQC(chunk)

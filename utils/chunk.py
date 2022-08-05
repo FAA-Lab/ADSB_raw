@@ -15,14 +15,14 @@ def chunk_dataframe_by_15min(df):
     return sub_df_list
 
 
-def chunk_dataframe_by_callsign(df_list):
-    callsign_list = list()
+def chunk_dataframe_by_acid(df_list):
+    acid_list = list()
     for df in df_list:
         temp_list = list()
-        for csgn in df["csgn"].unique():
-            temp_list.append(df[df["csgn"] == csgn])
-        callsign_list.append(temp_list)
-    return callsign_list
+        for acid in df["acid"].unique():
+            temp_list.append(df[df["acid"] == acid])
+        acid_list.append(temp_list)
+    return acid_list
 
 
 def chunk_dataframe_by_hour(df):
