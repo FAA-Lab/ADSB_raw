@@ -32,8 +32,8 @@ length_after_QC = np.zeros(len(filname))
 
 for i, d in enumerate(filname):
     try:
-        logging.info(f"Start Calculating Datetime: {d}")
-        df = pd.read_csv(f"{csv_path}/FAAL_ADSB_{d}.csv", index_col=0)
+        logging.info(f"Start Calculating File: {d}")
+        df = pd.read_csv(f"{csv_path}/{d}.csv", index_col=0)
         df['time'] = pd.to_datetime(df['time'])
         df['wspd'] = df['wspd']*0.514444    # kts to m/s
         logging.info('read done')
