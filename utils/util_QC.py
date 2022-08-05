@@ -26,7 +26,7 @@ def rangeQC(df):
 
 def staticQC(df):
     ths = 5
-    static_list = ["time", "wdir", "wspd"]
+    static_list = ["wdir", "wspd"]
     for k in static_list:
         if k in df.columns:
             df[f"flag_{k}"] = (df[k].groupby([df[k].diff().ne(0).cumsum()]).transform('size').ge(ths).astype(int))
@@ -66,7 +66,7 @@ def flucQC(df):
     return df
 
 def additionalQC(df):
-    df["timegap"] = df["time"].diff(1)
+    df["timegap"] = df["time"].diff(1) / pd.Timedelta(seconds=1)
     fluc_dict = {
         "tas":50.,
         "mhed":5.,
