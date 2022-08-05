@@ -68,15 +68,17 @@ def flucQC(df):
 def additionalQC(df):
     df["timegap"] = df["time"].diff(1)
     fluc_dict = {
-        "tas":50,
-        "mhed":5,
-        "tta":5,
-        "gspd":50
+        "tas":50.,
+        "mhed":5.,
+        "tta":5.,
+        "gspd":50.
     }
     for k, v in fluc_dict.items():
         if k in df.columns:
             if (k != "mhed") | (k != "tta"):
                 df[f"fluc_{k}"] = df[k].diff(1)
+                print(df.dtypes)
+                print(df["timegap"].dt.total_seconds()==0.)
                 df[k] = df[k][~((df["timegap"] == 0) & (abs(df[f"fluc_{k}"]) > v))]
                 df = df.drop(columns=[f"fluc_{k}"])
             else:
