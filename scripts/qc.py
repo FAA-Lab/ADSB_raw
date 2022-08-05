@@ -39,6 +39,11 @@ for i, d in enumerate(filname):
         logging.info('read done')
         length_before_QC[i] = len(df)
 
+        # altitude QC
+        alt_cutoff = (np.abs(df['alt'] - df['alt_x']) > 25) | (np.abs(df['alt'] - df['alt_y']) > 25)
+        df = df[~alt_cutoff]
+        df = df.drop(columns=['alt_x', 'alt_y'])
+
         df = rangeQC(df)
         # logging.info(f"After Range QC length: {len(df)}")
 
@@ -64,6 +69,9 @@ for i, d in enumerate(filname):
                 logging.info(f"fin {len(chunk)}")
         logging.info("static, fluc QC done, concat start")
         df_out = pd.concat(chunk_list)
+
+        df_out = df_out.drop_duplicates(subset=['time', 'acid', 'lat', 'lon', 'alt'])
+
         logging.info(f"Concat done. Final length: {len(df_out)}")
         length_after_QC[i] = len(df_out)
 
@@ -76,5 +84,5 @@ for i, d in enumerate(filname):
 fig, axes = plt.subplots(2, 1, figsize=(16, 6), gridspec_kw={'height_ratios': [3, 1]})
 axes[0].plot(np.arange(len(filname)), length_after_QC/length_before_QC)
 axes[1].plot(np.arange(len(filname)), length_before_QC)
-fig.savefig(f'{fig_out_path}/QCdone_ratio.png')
+fig.savefig(f'{fig_out_path}/{target_year}_QCdone_ratio.png')
 logging.info("draw done")
