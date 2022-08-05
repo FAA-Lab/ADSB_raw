@@ -24,8 +24,8 @@ df_out_path = "/data3/storgage/ADSB/QCdone"
 fig_out_path = "../results/wind_QC_fig"
 logging.info(f'Start QC for calculated wind')
 
-csv_list = glob.glob(f"{csv_path}/{target_year}*.csv")
-filname = [x.split('/')[-1][:-4] for x in glob.glob(f"{csv_path}/*.csv")]
+csv_list = glob.glob(f"{csv_path}/{target_year}*.txt")
+filname = [x.split('/')[-1][:-4] for x in glob.glob(f"{csv_path}/*.txt")]
 
 length_before_QC = np.zeros(len(filname))
 length_after_QC = np.zeros(len(filname))
@@ -33,7 +33,7 @@ length_after_QC = np.zeros(len(filname))
 for i, d in enumerate(filname):
     try:
         logging.info(f"Start Calculating File: {d}")
-        df = pd.read_csv(f"{csv_path}/{d}.csv", index_col=0)
+        df = pd.read_csv(f"{csv_path}/{d}.txt", index_col=0)
         df['time'] = pd.to_datetime(df['time'])
         df['wspd'] = df['wspd']*0.514444    # kts to m/s
         logging.info('read done')
