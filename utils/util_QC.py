@@ -77,8 +77,6 @@ def additionalQC(df):
         if k in df.columns:
             if (k != "mhed") | (k != "tta"):
                 df[f"fluc_{k}"] = df[k].diff(1)
-                print(df.dtypes)
-                print(df["timegap"].dt.total_seconds()==0.)
                 df[k] = df[k][~((df["timegap"] == 0) & (abs(df[f"fluc_{k}"]) > v))]
                 df = df.drop(columns=[f"fluc_{k}"])
             else:
