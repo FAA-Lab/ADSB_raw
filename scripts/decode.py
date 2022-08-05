@@ -123,6 +123,7 @@ def decode(f):
 
         # calculate wind
         target_final = calculate(target_final)
+        target_final = target_final.dropna(subset=['time', 'lat', 'lon', 'alt', 'wspd', 'wdir', 'tas', 'mhed', 'tta', 'gspd'])
 
         target_final.to_csv(f"{out_path}/{date}_{filename}")
         logging.info(f"Work done")

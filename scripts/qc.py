@@ -43,7 +43,9 @@ for i, d in enumerate(filname):
         alt_cutoff = (np.abs(df['alt'] - df['alt_x']) > 25) | (np.abs(df['alt'] - df['alt_y']) > 25)
         df = df[~alt_cutoff]
         df = df.drop(columns=['alt_x', 'alt_y'])
-        df = df.dropna(subset=['time', 'lat', 'lon', 'alt', 'wspd', 'wdir'])
+
+        # Drop nan values
+        df = df.dropna(subset=['time', 'lat', 'lon', 'alt', 'wspd', 'wdir', 'tas', 'mhed', 'tta', 'gspd'])
 
         df = rangeQC(df)
         # logging.info(f"After Range QC length: {len(df)}")
