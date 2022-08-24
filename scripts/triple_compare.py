@@ -38,7 +38,7 @@ logging.basicConfig(filename=f"{log_path}/{target_year}_triple_compare.log",
 ADSB_path = f"/data3/storage/ADSB/QCdone"
 out_path = f"../results/{target_year}_triple_compare_220805"
 
-AMDAR_path = f"/home/kjmv/MADIS_AMDAR"
+AMDAR_path = f"/data8/storage/kjmv/MADIS_AMDAR"
 ERA5_path = "/data2/share/ADSB_Calculation"
 
 logging.info(f'Start comparing: ')

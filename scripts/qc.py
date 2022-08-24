@@ -10,7 +10,7 @@ from utils.util_QC import rangeQC, staticQC, flucQC, additionalQC
 from utils.chunk import chunk_dataframe_by_acid, chunk_dataframe_by_15min
 
 
-target_year = "2020"
+target_year = "2022"
 
 log_path = "../log"
 logging.basicConfig(filename=f"{log_path}/{target_year}_calculated_wind_QC.log",
@@ -25,7 +25,7 @@ fig_out_path = "../results/wind_QC_fig"
 logging.info(f'Start QC for calculated wind')
 
 csv_list = glob.glob(f"{csv_path}/{target_year}*.txt")
-filname = [x.split('/')[-1][:-4] for x in glob.glob(f"{csv_path}/*.txt")]
+filname = [x.split('/')[-1][:-4] for x in csv_list)]
 
 length_before_QC = np.zeros(len(filname))
 length_after_QC = np.zeros(len(filname))
