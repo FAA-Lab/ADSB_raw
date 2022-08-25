@@ -39,7 +39,7 @@ ADSB_path = f"/data3/storage/ADSB/QCdone"
 out_path = f"../results/{target_year}_triple_compare_220805"
 
 AMDAR_path = f"/data8/storage/kjmv/MADIS_AMDAR"
-ERA5_path = "/data2/share/ADSB_Calculation"
+ERA5_path = "/data8/storage/kjmv/ERA5_month"
 
 logging.info(f'Start comparing: ')
 logging.info(f'method:  {thinning_method}')
