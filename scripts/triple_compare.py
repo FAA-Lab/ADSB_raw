@@ -11,7 +11,7 @@ from utils.util_fig import draw_bias_histogram, draw_box_plot, draw_scatter_plot
 from utils.wind import calc_wspd, calc_wdir
 
 parser = argparse.ArgumentParser(description='Triple Comparing Work')
-parser.add_argument('--year', dest='target_year', default='2020', type=str)
+parser.add_argument('--year', dest='target_year', default='2022', type=str)
 parser.add_argument('--time', dest='time_resolution', default='60min', type=str)
 parser.add_argument('--lat', dest='lat_resolution', default=0.25, type=float)
 parser.add_argument('--lon', dest='lon_resolution', default=0.25, type=float)
@@ -48,6 +48,7 @@ logging.info(f'time:    {time_resolution}')
 logging.info(f'lat:     {lat_resolution}')
 logging.info(f'lon:     {lon_resolution}')
 logging.info(f'lev:     {lev_resolution}')
+
 
 try:
     ERA5list = list()
