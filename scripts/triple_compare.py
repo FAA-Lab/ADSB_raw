@@ -3,30 +3,35 @@ import pandas as pd
 import numpy as np
 from functools import reduce
 import logging
-import argparse
+# import argparse
 import datetime
 
 from utils.util_compare import round_by_step, read_AMDAR_to_df, read_ERA5_to_df, altitude_to_pressure, calc_geo_distance
 from utils.util_fig import draw_bias_histogram, draw_box_plot, draw_scatter_plot, draw_bias_rms, draw_map
 from utils.wind import calc_wspd, calc_wdir
 
-parser = argparse.ArgumentParser(description='Triple Comparing Work')
-parser.add_argument('--year', dest='target_year', default='2022', type=str)
-parser.add_argument('--time', dest='time_resolution', default='60min', type=str)
-parser.add_argument('--lat', dest='lat_resolution', default=0.25, type=float)
-parser.add_argument('--lon', dest='lon_resolution', default=0.25, type=float)
-parser.add_argument('--lev', dest='lev_resolution', default=25, type=int)
-parser.add_argument('--method', dest='thinning_method', default='mean', type=str)
-parser.add_argument('--wind_based_on', dest='wind_based_on', default='BDS60', type=str)
+# parser = argparse.ArgumentParser(description='Triple Comparing Work')
+# parser.add_argument('--year', dest='target_year', default='2020', type=str)
+# parser.add_argument('--time', dest='time_resolution', default='60min', type=str)
+# parser.add_argument('--lat', dest='lat_resolution', default=0.25, type=float)
+# parser.add_argument('--lon', dest='lon_resolution', default=0.25, type=float)
+# parser.add_argument('--lev', dest='lev_resolution', default=25, type=int)
+# parser.add_argument('--method', dest='thinning_method', default='mean', type=str)
 
-target_year = str(parser.parse_args().target_year)
-time_resolution = parser.parse_args().time_resolution
-lat_resolution = parser.parse_args().lat_resolution
-lon_resolution = parser.parse_args().lon_resolution
-lev_resolution = parser.parse_args().lev_resolution
-thinning_method = parser.parse_args().thinning_method
-wind_based_on = parser.parse_args().wind_based_on
+# target_year = str(parser.parse_args().target_year)
+# time_resolution = parser.parse_args().time_resolution
+# lat_resolution = parser.parse_args().lat_resolution
+# lon_resolution = parser.parse_args().lon_resolution
+# lev_resolution = parser.parse_args().lev_resolution
+# thinning_method = parser.parse_args().thinning_method
 # print(parser.parse_args())
+
+target_year = 2022
+time_resolution = '60min'
+lat_resolution = 0.25
+lon_resolution = 0.25
+lev_resolution = 25
+thinning_method = 'mean'
 
 log_path = "../log"
 logging.basicConfig(filename=f"{log_path}/{target_year}_triple_compare.log",

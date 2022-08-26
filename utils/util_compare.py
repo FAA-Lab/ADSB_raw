@@ -11,8 +11,8 @@ def read_AMDAR_to_df(f):
     nc = nc4.Dataset(f)
     dtime = nc4.num2date(nc.variables['timeObs'][:],
                          nc.variables['timeObs'].units,
-                         only_use_cftime_datetimes=False,
-                         only_use_python_datetimes=True)
+                         only_use_cftime_datetimes=False)
+#                         only_use_python_datetimes=True)
     time = pd.to_datetime(dtime)
     lat = pd.Series(nc.variables['latitude'][:])
     lon = pd.Series(nc.variables['longitude'][:])
@@ -59,8 +59,8 @@ def read_ERA5_to_df(f):
     nc = nc4.Dataset(f)
     dtime = nc4.num2date(nc.variables['time'][:],
                          nc.variables['time'].units,
-                         only_use_cftime_datetimes=False,
-                         only_use_python_datetimes=True)
+                         only_use_cftime_datetimes=False)
+#                         only_use_python_datetimes=True)
     time = pd.to_datetime(dtime)
     lat = pd.Series(nc.variables['latitude'][:])
     lon = pd.Series(nc.variables['longitude'][:])
