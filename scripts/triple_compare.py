@@ -76,8 +76,6 @@ try:
     ADSBdf = pd.concat(ADSBlist)
 
     ADSBdf['time'] = pd.to_datetime(ADSBdf['time'])
-    # LST to UTC
-    ADSBdf['time'] = ADSBdf['time'] - datetime.timedelta(hours=9)
 
     ADSBdf = ADSBdf[ADSBdf['mhed']!=0.]
     ADSBdf = ADSBdf[ADSBdf['tas']!=0.]
