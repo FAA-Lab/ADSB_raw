@@ -6,7 +6,7 @@ import multiprocessing
 from scripts.qc import qc
 
 
-target_year = "2021"
+target_year = "2022"
 
 csv_path = "/data3/storage/ADSB/merged"
 file_list = glob.glob(f"{csv_path}/{target_year}*.txt")
