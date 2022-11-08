@@ -2,14 +2,14 @@ import pandas as pd
 import glob
 import logging
 
-from utils.chunk import chunk_dataframe_by_minute, chunk_dataframe_by_acid
-from utils.util_edr import calculate_edr2
+from utils.chunk import chunk_dataframe_by_15min, chunk_dataframe_by_hour, chunk_dataframe_by_acid
+from utils.util_edr import calculate_jerk, calculate_edr2
 
 def edr2(f):
     csv_path = "/data3/storage/ADSB/QCdone"
     edr_path = f"/data3/storage/ADSB/EDR/EDR2"
 
-    d = f.split('/')[-1][:-4]
+    d = f.split('/')[-1][10:-4]
     logging.info(f"Start Calculating File: {d}")
 
     try:
@@ -17,7 +17,7 @@ def edr2(f):
         df['time'] = pd.to_datetime(df['time'])
         df = df.dropna(subset=['wdir', 'wspd'], how='any')
 
-        sub_df_list = chunk_dataframe_by_minute(df)
+        sub_df_list = chunk_dataframe_by_hour(df)
         acid_list = chunk_dataframe_by_acid(sub_df_list)
 
         chunk_list = list()
@@ -45,7 +45,7 @@ def jerk(f):
     csv_path = "/data3/storage/ADSB/QCdone"
     edr_path = f"/data3/storage/ADSB/EDR/jerk"
 
-    d = f.split('/')[-1][:-4]
+    d = f.split('/')[-1][10:-4]
     logging.info(f"Start Calculating File: {d}")
 
     try:

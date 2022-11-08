@@ -2,15 +2,17 @@ import glob
 import logging
 from logging.handlers import QueueHandler, QueueListener
 import multiprocessing
+import warnings
 
 from scripts.edr import edr2, jerk
 
+warnings.filterwarnings(action='ignore')
 
 csv_path = "/data3/storage/ADSB/QCdone"
 file_list = glob.glob(f"{csv_path}/*.csv")
 # file_list = [x.split('/')[-1][:-4] for x in csv_list]
-type_edr = "EDR2"
-# type_edr = "jerk_EDR"
+# type_edr = "EDR2"
+type_edr = "jerk_EDR"
 
 log_path = "../log"
 num_core = 36
@@ -44,7 +46,7 @@ def main():
     q_listener, q = logger_init()
     logging.info(f'Start calculating {type_edr}')
     pool = multiprocessing.Pool(num_core, worker_init, [q])
-    for result in pool.map(edr2, file_list):
+    for result in pool.map(jerk, file_list):
         pass
     pool.close()
     pool.join()
